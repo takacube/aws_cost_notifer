@@ -1,42 +1,41 @@
 import json
+import boto3
+from datetime import date
+import datetime
 
-# import requests
 
 
 def lambda_handler(event, context):
-    """Sample pure Lambda function
+    date_today = datetime.datetime.today()
+    today = f"{date_today.year}-{str(date_today.month).zfill(2)}-{str(date_today.day).zfill(2)}"
+    head_of_month = f"{date_today.year}-{str(date_today.month).zfill(2)}-01"
 
-    Parameters
-    ----------
-    event: dict, required
-        API Gateway Lambda Proxy Input Format
-
-        Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
-
-    context: object, required
-        Lambda Context runtime methods and attributes
-
-        Context doc: https://docs.aws.amazon.com/lambda/latest/dg/python-context-object.html
-
-    Returns
-    ------
-    API Gateway Lambda Proxy Output Format: dict
-
-        Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
-    """
-
-    # try:
-    #     ip = requests.get("http://checkip.amazonaws.com/")
-    # except requests.RequestException as e:
-    #     # Send some context about this error to Lambda Logs
-    #     print(e)
-
-    #     raise e
-
+    services = get_montlycost(head_of_month, today)
+    block = create_block(services)
     return {
         "statusCode": 200,
         "body": json.dumps({
-            "message": "----hello world-------",
-            # "location": ip.text.replace("\n", "")
+            "message": block
         }),
     }
+
+
+def get_montlycost(head_of_month, today):
+    billing_client = boto3.client('ce')
+    response = billing_client.get_cost_and_usage(
+        TimePeriod={
+            'Start': head_of_month,
+            'End': today },
+        Granularity='MONTHLY',
+        Metrics=[ 'UnblendedCost',],
+        GroupBy= [
+            { 'Type':'DIMENSION', 'Key':'SERVICE' }
+        ],
+    )
+    cost_with_services = response["ResultsByTime"][0]["Groups"]
+    return cost_with_services
+
+def create_block(services):
+    for service in services:
+        print(service["Keys"])
+        print(service["Metrics"]["UnblendedCost"])
