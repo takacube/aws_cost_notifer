@@ -1,3 +1,6 @@
+## High_Level_Structure
+![](https://storage.googleapis.com/zenn-user-upload/192ded1e6a95-20220222.png)
+
 # Billing_Management
 
 This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders.
