@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  sam-app
+
+  Sample SAM Template for sam-app
+
+Globals:
+  Function:
+    Timeout: 30
+
+Globals:
+  Function:
+    Handler: app.lambda_handler
+    Runtime: python3.9
+    Environment:
+      Variables:
+        TZ: Asia/Tokyo
+        REGION: ap-northeast-1
+Resources:
+  InitialResponseFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt BillingNotiferIamRole.Arn
+      Timeout: 300
+      CodeUri: initial_handler/
+      Events:
+        CronAt8oclock:
+          Type: Schedule
+          Properties:
+            Schedule: 'cron(0 12 * * ? *)'
+            Name: InformBillingTrigger
+            Description: test schedule
+            Enabled: false
+  BillingNotiferIamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: "sts:AssumeRole"
+      Policies:
+        -
+          PolicyName: "billig_notifer_lambda"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              -
+                Effect: "Allow"
+                Action: "logs:*"
+                Resource: "*"
