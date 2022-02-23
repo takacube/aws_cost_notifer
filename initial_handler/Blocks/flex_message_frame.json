@@ -1,0 +1,8 @@
+{
+    "type": "flex",
+    "altText": "alternative text",
+    "contents": {
+        "type": "carousel",
+        "contents": []
+    }
+}
