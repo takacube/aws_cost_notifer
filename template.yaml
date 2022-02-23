@@ -9,6 +9,14 @@ Globals:
   Function:
     Timeout: 30
 
+Parameters:
+  LineToken:
+    Type: String
+    Default: xxx
+  MyLineId:
+    Type: String
+    Default: xxx
+
 Globals:
   Function:
     Handler: app.lambda_handler
@@ -17,6 +25,8 @@ Globals:
       Variables:
         TZ: Asia/Tokyo
         REGION: ap-northeast-1
+        LINE_TOKEN: !Ref LineToken
+        MY_LINE_ID: !Ref MyLineId
 Resources:
   InitialResponseFunction:
     Type: AWS::Serverless::Function

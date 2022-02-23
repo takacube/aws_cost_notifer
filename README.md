@@ -1,6 +1,12 @@
 ## High_Level_Structure
 ![](https://storage.googleapis.com/zenn-user-upload/192ded1e6a95-20220222.png)
 
+[more SAM](https://github.com/aws/serverless-application-model/blob/master/versions/2016-10-31.md#eventbridgerule)
+
+#install modules
+execute it at root path
+- pip install -r initial_handler/requirements.txt -t ./initial_handler
+
 # Billing_Management
 
 This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders.

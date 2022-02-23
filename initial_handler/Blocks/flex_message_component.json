@@ -1,0 +1,79 @@
+{
+    "type": "bubble",
+    "size": "nano",
+    "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+            {
+                "type": "text",
+                "text": "0.079 USD",
+                "color": "#ffffff",
+                "align": "start",
+                "size": "md",
+                "gravity": "center"
+            },
+            {
+                "type": "text",
+                "text": "20%",
+                "color": "#ffffff",
+                "align": "start",
+                "size": "xs",
+                "gravity": "center",
+                "margin": "lg"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "filler"
+                            }
+                        ],
+                        "width": "20%",
+                        "backgroundColor": "#0D8186",
+                        "height": "6px"
+                    }
+                ],
+                "backgroundColor": "#9FD8E36E",
+                "height": "6px",
+                "margin": "sm"
+            }
+        ],
+        "backgroundColor": "#27ACB2",
+        "paddingTop": "19px",
+        "paddingAll": "12px",
+        "paddingBottom": "16px"
+    },
+    "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+            {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                    {
+                        "type": "text",
+                        "text": "Amazon Relational Database Service",
+                        "color": "#8C8C8C",
+                        "size": "sm",
+                        "wrap": true
+                    }
+                ],
+                "flex": 1
+            }
+        ],
+        "spacing": "md",
+        "paddingAll": "12px"
+    },
+    "styles": {
+        "footer": {
+            "separator": false
+        }
+    }
+}
